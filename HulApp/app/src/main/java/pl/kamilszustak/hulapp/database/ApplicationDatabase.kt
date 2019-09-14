@@ -1,20 +1,22 @@
 package pl.kamilszustak.hulapp.database
 
 import android.app.Application
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-
+import androidx.room.*
+import pl.kamilszustak.hulapp.model.Track
+import pl.kamilszustak.hulapp.model.User
+import pl.kamilszustak.hulapp.R
 
 @Database(
-    entities = [],
+    entities = [
+        User::class,
+        Track::class
+    ],
     version = 1,
     exportSchema = true)
 @TypeConverters(Converters::class)
-class ApplicationDatabase : RoomDatabase() {
+abstract class ApplicationDatabase : RoomDatabase() {
 
-
+    abstract fun getUserDao(): UserDao
 
     companion object {
         private var INSTANCE: ApplicationDatabase? = null

@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f0d527088498a5314513fd2667de89fb",
+    "entities": [
+      {
+        "tableName": "user",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`email` TEXT NOT NULL, `passwordHash` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `surname` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "passwordHash",
+            "columnName": "passwordHash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "profile.name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "profile.surname",
+            "columnName": "surname",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "track",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `length` REAL NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "endTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "length",
+            "columnName": "length",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f0d527088498a5314513fd2667de89fb')"
+    ]
+  }
+}

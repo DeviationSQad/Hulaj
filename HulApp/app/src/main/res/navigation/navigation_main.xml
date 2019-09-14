@@ -1,3 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_main" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_main"
+    app:startDestination="@+id/feedFragment">
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="pl.kamilszustak.hulapp.view.FeedFragment"
+        android:label="FeedFragment" />
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="pl.kamilszustak.hulapp.view.EventsFragment"
+        android:label="EventsFragment" />
+
+    <fragment
+        android:id="@+id/trackFragment"
+        android:name="pl.kamilszustak.hulapp.view.TrackFragment"
+        android:label="TrackFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="pl.kamilszustak.hulapp.view.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="pl.kamilszustak.hulapp.view.MessagesFragment"
+        android:label="MessagesFragment" />
+</navigation>

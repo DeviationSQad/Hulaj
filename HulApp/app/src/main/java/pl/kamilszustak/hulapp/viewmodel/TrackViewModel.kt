@@ -31,14 +31,22 @@ class TrackViewModel(application: Application) : BaseViewModel(application) {
     val isLocationPermissionGranted: LiveData<Boolean>
         get() = _isLocationPermissionGranted
 
-    //private var previousLocation: Location =
+    private lateinit var previousLocation: Location
+    private var isFirstLocationUpdate = true
 
     private val locationListener = object: LocationListener {
         override fun onLocationChanged(location: Location?) {
-            val newDistance = previousLocation.distanceTo(location)
-            val previousDistance = _trackLength.value
-            previousDistance?.let {
-                _trackLength.value = it + newDistance
+            if (isFirstLocationUpdate) {
+                location?.let {
+                    previousLocation = it
+                }
+                isFirstLocationUpdate = false
+            } else {
+                val newDistance = previousLocation.distanceTo(location)
+                val previousDistance = _trackLength.value
+                previousDistance?.let {
+                    _trackLength.value = it + newDistance
+                }
             }
         }
 
@@ -66,25 +74,52 @@ class TrackViewModel(application: Application) : BaseViewModel(application) {
 
     fun startTracking() {
         val currentTrackingState = _trackingState.value
+
         if (currentTrackingState == TrackingState.NOT_STARTED ||
             currentTrackingState == TrackingState.FINISHED) {
 
-            try {
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    LOCATION_UPDATE_MIN_INTERVAL,
-                    LOCATION_UPDATE_MIN_DISTANCE,
-                    locationListener
-                )
-
-                _trackingState.value = TrackingState.STARTED
-            } catch (e: SecurityException) {
-                Timber.i(e.message)
-            }
+            requestLocationUpdates()
         }
     }
 
+    fun pauseTracking() {
+        val currentTrackingState = _trackingState.value
 
+        if (currentTrackingState == TrackingState.STARTED) {
+            locationManager.removeUpdates(locationListener)
+        }
+    }
+
+    fun resumeTracking() {
+        val currentTrackingState = _trackingState.value
+
+        if (currentTrackingState == TrackingState.PAUSED) {
+            requestLocationUpdates()
+        }
+    }
+
+    fun stopTracking() {
+        val currentTrackingState = _trackingState.value
+
+        if (currentTrackingState == TrackingState.PAUSED) {
+            locationManager.removeUpdates(locationListener)
+        }
+    }
+
+    private fun requestLocationUpdates() {
+        try {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                LOCATION_UPDATE_MIN_INTERVAL,
+                LOCATION_UPDATE_MIN_DISTANCE,
+                locationListener
+            )
+
+            _trackingState.value = TrackingState.STARTED
+        } catch (e: SecurityException) {
+            Timber.e(e)
+        }
+    }
 
     enum class TrackingState {
         NOT_STARTED,

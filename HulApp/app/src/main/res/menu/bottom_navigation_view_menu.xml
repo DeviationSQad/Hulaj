@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/feedItem"
+        android:id="@+id/feedFragment"
         android:icon="@drawable/feed_icon"
         android:title="Aktualności" />
 
     <item
-        android:id="@+id/eventsItem"
+        android:id="@+id/eventsFragment"
         android:icon="@drawable/events_icon"
         android:title="Wydarzenia" />
 
     <item
-        android:id="@+id/trackingItem"
+        android:id="@+id/trackFragment"
         android:icon="@drawable/tracking_icon"
         android:title="Trasa" />
 
     <item
-        android:id="@+id/profileItem"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/profile_icon"
         android:title="Profil" />
 
     <item
-        android:id="@+id/messagesItem"
+        android:id="@+id/messagesFragment"
         android:icon="@drawable/messages_icon"
         android:title="Wiadomości" />
 

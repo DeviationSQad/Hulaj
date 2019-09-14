@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/signUpTitleTextView"
-        android:text="Sign up"
+        android:text="Rejestracja"
         android:textSize="48sp"
         android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/nameEditText"
             android:inputType="textPersonName"
-            android:hint="Name" />
+            android:hint="Imię" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

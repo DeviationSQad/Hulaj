@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/default_padding">
+    android:padding="@dimen/default_padding"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"

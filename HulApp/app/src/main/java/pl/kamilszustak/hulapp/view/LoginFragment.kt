@@ -1,5 +1,6 @@
 package pl.kamilszustak.hulapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -34,7 +35,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         loginButton.setOnClickListener {
-
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
     }
 }

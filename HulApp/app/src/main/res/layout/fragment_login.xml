@@ -5,13 +5,11 @@
     android:padding="@dimen/default_padding"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/applicationNameTextView"
-        android:text="@string/app_name"
-        android:textSize="64sp"
-        android:fontFamily="sans-serif-light"
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="256dp"
+        android:id="@+id/appLogoImageView"
+        android:src="@drawable/hulapp_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +24,7 @@
         android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/applicationNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/appLogoImageView"
         app:layout_constraintBottom_toTopOf="@id/passwordInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -52,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/passwordEditText"
-            android:hint="Password"
+            android:hint="Hasło"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -61,10 +59,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/signUpButton"
-        android:text="Don't have an account? Sign up!"
+        android:text="Nie masz konta? Utwórz je!"
         android:textSize="12sp"
         android:background="@android:color/transparent"
-        style="?android:attr/borderlessButtonStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/passwordInputLayout"
         app:layout_constraintTop_toBottomOf="@id/passwordInputLayout"
@@ -75,7 +72,7 @@
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Zaloguj"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

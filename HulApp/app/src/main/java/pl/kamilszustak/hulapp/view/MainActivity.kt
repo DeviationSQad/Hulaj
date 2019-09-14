@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun initializeBottomNavigationView() {
-        val navController = findNavController(R.id.navHostFragment)
+        val navController = findNavController(R.id.mainNavHostFragment)
         bottomNavigationView.setupWithNavController(navController)
     }
 }
