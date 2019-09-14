@@ -6,6 +6,8 @@ from . import views
 urlpatterns = [
     path('users', views.UserListView.as_view()),
     path('users/<int:pk>', views.UserDetailView.as_view()),
-    path('track', views.TrackView.as_view()),
-    url(r'^auth/', include('rest_auth.urls'))
+    path('tracks', views.TrackView.as_view()),
+    path('events', views.EventView.as_view()),
+    path('events/<int:pk>', views.EventDetailView().as_view()),
+    url(r'^auth/', include('rest_auth.urls')),
 ]

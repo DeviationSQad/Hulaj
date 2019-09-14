@@ -51,13 +51,14 @@ class Event(models.Model):
     id_user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=False, null=False)
+    description = models.CharField(max_length=300)
     place_name = models.CharField(max_length=100)
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=75)
     address = models.CharField(max_length=100)
     event_date = models.DateTimeField(blank=False, null=False)
-    max_amount_of_people = models.IntegerField(blank=True)
+    max_amount_of_people = models.IntegerField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
 

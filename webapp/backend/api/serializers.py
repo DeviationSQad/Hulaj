@@ -61,7 +61,7 @@ class TrackSerializer(ModelSerializer):
 class EventSerializer(ModelSerializer):
     class Meta:
         model = Event
-        fields = ('id', 'id_user', 'tile', 'place_name', 'country', 'city', 'address', 'event_date', 'max_amount_of_people', 'is_acitve')
+        fields = ('id', 'id_user', 'title', 'description', 'place_name', 'country', 'city', 'address', 'event_date', 'max_amount_of_people', 'is_active')
 
 
 class PostSerializer(ModelSerializer):
