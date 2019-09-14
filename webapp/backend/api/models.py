@@ -45,7 +45,7 @@ class UserProfile(models.Model):
 
 
 class Event(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100)
@@ -59,7 +59,7 @@ class Event(models.Model):
 
 
 class Post(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now_add=True)
     post_type = models.CharField(max_length=20, blank=False, null=False)
@@ -67,10 +67,11 @@ class Post(models.Model):
     text = models.CharField(max_length=500, blank=False, null=False)
 
 
-class Trace(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+class Track(models.Model):
+    id_user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now_add=True)
     time_start = models.DateTimeField(blank=False, null=False)
     time_end = models.DateTimeField(blank=False, null=False)
-    trace_length = models.FloatField(blank=False, null=False, default=0.0)
+    duration = models.TimeField(blank=False, null=False)
+    track_length = models.FloatField(blank=False, null=False, default=0.0)

@@ -1,5 +1,11 @@
 from django.conf.urls import url, include
+from django.urls import path
+from . import views
+
 
 urlpatterns = [
-    url(r'^rest-auth/', include('rest_auth.urls'))
+    path('users', views.UserListView.as_view()),
+    path('users/<int:pk>', views.UserDetailView.as_view()),
+    path('track', views.TrackView.as_view()),
+    url(r'^auth/', include('rest_auth.urls'))
 ]

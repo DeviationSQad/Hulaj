@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'api',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_auth',
     'corsheaders',
 ]
@@ -52,6 +53,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -128,6 +132,7 @@ AUTH_USER_MODEL = 'api.User'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'api.serializers.UserSerializer',
+    'TOKEN_SERIALIZER': 'api.serializers.TokenSerializer',
 }
 
 MEDIA_URL = '/media/'
