@@ -32,8 +32,8 @@ class User(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
-    id_scooter = models.ForeignKey(Scooter, on_delete=models.CASCADE)
-    id_car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    id_scooter = models.ForeignKey(Scooter, on_delete=models.CASCADE, blank=True, null=True)
+    id_car = models.ForeignKey(Car, on_delete=models.CASCADE, blank=True, null=True)
     photo = models.FileField(blank=True, null=True)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now_add=True)
@@ -42,6 +42,9 @@ class UserProfile(models.Model):
     country = models.CharField(max_length=50, blank=True, null=True)
     city = models.CharField(max_length=75, blank=True, null=True)
     points = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.photo.name
 
 
 class Event(models.Model):

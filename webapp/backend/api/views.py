@@ -18,4 +18,4 @@ class TrackView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user.pk
-        return Track.objects.filter(pk=user)
+        return Track.objects.filter(id_user=user)
