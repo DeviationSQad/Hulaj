@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">HulApp</string>
+    <string name="database_name">hulapp_database</string>
+</resources>
