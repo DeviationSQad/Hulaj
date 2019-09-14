@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/feedItem"
+        android:icon="@drawable/feed_icon"
+        android:title="Aktualności" />
+
+    <item
+        android:id="@+id/eventsItem"
+        android:icon="@drawable/events_icon"
+        android:title="Wydarzenia" />
+
+    <item
+        android:id="@+id/trackingItem"
+        android:icon="@drawable/tracking_icon"
+        android:title="Trasa" />
+
+    <item
+        android:id="@+id/profileItem"
+        android:icon="@drawable/profile_icon"
+        android:title="Profil" />
+
+    <item
+        android:id="@+id/messagesItem"
+        android:icon="@drawable/messages_icon"
+        android:title="Wiadomości" />
+
+
+
+
+</menu>
