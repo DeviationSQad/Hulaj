@@ -167,6 +167,9 @@ class TrackViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             val response = service.postTrack(track)
             if (response.isSuccessful) {
+                response.body()?.let {
+                    track.id = it.id
+                }
                 insertTrack(track)
             } else {
                 Timber.i("Response unsuccessful")
