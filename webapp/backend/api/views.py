@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .serializers import UserSerializer, EventSerializer, PostSerializer, TrackSerializer
-from .models import User, Event, Post, Track
+from .serializers import UserSerializer, EventSerializer, PostSerializer, TrackSerializer, ScooterSerializer, CarSerializer
+from .models import User, Event, Post, Track, Scooter, Car
 
 
 class UserListView(generics.ListCreateAPIView):
@@ -29,3 +29,29 @@ class EventView(generics.ListCreateAPIView):
 class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
+
+
+class ScooterView(generics.ListCreateAPIView):
+    serializer_class = ScooterSerializer
+
+    def get_queryset(self):
+        user = self.request.user.pk
+        return Scooter.objects.filter(id_user=user)
+
+
+class ScooterDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ScooterSerializer
+    queryset = Scooter.objects.all()
+
+
+class CarView(generics.ListCreateAPIView):
+    serializer_class = CarSerializer
+
+    def get_queryset(self):
+        user = self.request.user.pk
+        return Car.objects.filter(id_user=user)
+
+
+class CarDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CarSerializer
+    queryset = Car.objects.all()

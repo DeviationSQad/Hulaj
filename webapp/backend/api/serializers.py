@@ -1,12 +1,12 @@
 from rest_framework.serializers import ModelSerializer
-from .models import User, UserProfile, Event, Post, Track
+from .models import User, UserProfile, Event, Post, Track, Scooter, Car
 from rest_auth.models import TokenModel
 
 
 class UserProfileSerializer(ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('photo', 'bio', 'date_of_birth', 'country', 'city', 'points')
+        fields = ('id', 'photo', 'bio', 'date_of_birth', 'country', 'city', 'points')
 
 
 class UserSerializer(ModelSerializer):
@@ -68,3 +68,15 @@ class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'id_user', 'post_type', 'title', 'text')
+
+
+class ScooterSerializer(ModelSerializer):
+    class Meta:
+        model = Scooter
+        fields = ('id', 'id_user' 'photo', 'mark', 'type', 'wheel_size', 'wheel_type', 'opinion')
+
+
+class CarSerializer(ModelSerializer):
+    class Meta:
+        model = Car
+        fields = ('id', 'id_user', 'mark', 'type', 'fuel_consumption_per_100', 'exhaust_amount')

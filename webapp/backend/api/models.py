@@ -4,21 +4,6 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 
-class Scooter(models.Model):
-    photo = models.FileField(blank=True, null=True)
-    mark = models.CharField(max_length=100, blank=False, null=False)
-    type = models.CharField(max_length=25, blank=False, null=False)
-    wheel_size = models.IntegerField(blank=True, null=True)
-    wheel_type = models.CharField(max_length=25, blank=True, null=True)
-
-
-class Car(models.Model):
-    mark = models.CharField(max_length=100, blank=True, null=True)
-    type = models.CharField(max_length=25, blank=True, null=True)
-    fuel_consumption_per_100 = models.IntegerField(blank=False, null=False)
-    exhaust_amount = models.IntegerField(blank=True, null=True)
-
-
 class User(AbstractUser):
     username = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(_('email address'), unique=True)
@@ -32,8 +17,6 @@ class User(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
-    id_scooter = models.ForeignKey(Scooter, on_delete=models.CASCADE, blank=True, null=True)
-    id_car = models.ForeignKey(Car, on_delete=models.CASCADE, blank=True, null=True)
     photo = models.FileField(blank=True, null=True)
     add_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now_add=True)
@@ -45,6 +28,24 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.photo.name
+
+
+class Scooter(models.Model):
+    id_user = models.ForeignKey(User, to_field='id', default=1, on_delete=models.CASCADE)
+    photo = models.FileField(blank=True, null=True)
+    mark = models.CharField(max_length=100, blank=False, null=False)
+    type = models.CharField(max_length=25, blank=False, null=False)
+    wheel_size = models.IntegerField(blank=True, null=True)
+    wheel_type = models.CharField(max_length=25, blank=True, null=True)
+    opinion = models.CharField(max_length=300, blank=True, null=True)
+
+
+class Car(models.Model):
+    id_user = models.ForeignKey(User, to_field='id', default=1, on_delete=models.CASCADE)
+    mark = models.CharField(max_length=100, blank=True, null=True)
+    type = models.CharField(max_length=25, blank=True, null=True)
+    fuel_consumption_per_100 = models.IntegerField(blank=False, null=False)
+    exhaust_amount = models.IntegerField(blank=True, null=True)
 
 
 class Event(models.Model):
