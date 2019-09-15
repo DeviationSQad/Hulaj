@@ -15,6 +15,7 @@ import pl.kamilszustak.hulapp.adapter.TracksRecyclerViewAdapter
 import pl.kamilszustak.hulapp.model.Track
 import pl.kamilszustak.hulapp.viewmodel.TracksViewModel
 import pl.kamilszustak.hulapp.viewmodel.factory.BaseViewModelFactory
+import timber.log.Timber
 
 class TracksFragment : Fragment(R.layout.fragment_tracks) {
 
@@ -60,9 +61,6 @@ class TracksFragment : Fragment(R.layout.fragment_tracks) {
     private fun observeViewModel() {
         viewModel.tracks.observe(this, Observer {
             recyclerViewAdapter.updateTracksList(it)
-        })
-
-        viewModel.currentUser.observe(this, Observer {
         })
     }
 

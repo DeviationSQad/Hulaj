@@ -31,13 +31,13 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             val loginResponse = service.login(loginRequest)
             if (loginResponse.isSuccessful) {
-                Timber.i("Successful")
                 val response = loginResponse.body()
                 response?.let {
                     insertUser(it.user)
+                    _loginStatus.value = LoginStatus.LOGGED_IN
+                    setSettingValue(SettingsRepository.SharedPreferencesSettingsKey.IS_USER_LOGGED_IN, true)
+                    setSettingValue(SettingsRepository.SharedPreferencesSettingsKey.CURRENT_USER_ID, it.user.id)
                 }
-                _loginStatus.value = LoginStatus.LOGGED_IN
-                setSettingValue(SettingsRepository.SharedPreferencesSettingsKey.IS_USER_LOGGED_IN, true)
             } else {
                 Timber.i("Error")
                 _loginStatus.value = LoginStatus.LOGIN_ERROR

@@ -15,6 +15,9 @@ interface HulAppService {
     @POST("/api/auth/login/")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
+    @POST("/api/auth/logout/")
+    suspend fun logout(): Response<Unit>
+
     @POST("/api/tracks")
     suspend fun postTrack(@Body track: Track): Response<Track>
 
@@ -22,7 +25,7 @@ interface HulAppService {
     suspend fun getAllTracks(): Response<List<Track>>
 
     @GET("/api/tracks")
-    suspend fun getTrackByUserId(@Query("id_user") userId: Int): Response<List<Track>>
+    suspend fun getTracksByUserId(@Query("id_user") userId: Int): Response<List<Track>>
 
     @GET("/api/events")
     suspend fun getAllEvents(): Response<List<Event>>

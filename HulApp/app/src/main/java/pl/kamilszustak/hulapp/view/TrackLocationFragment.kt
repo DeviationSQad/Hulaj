@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.TransitionInflater
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.gif.GifDrawable
 import kotlinx.android.synthetic.main.fragment_track_location.*
+import org.jetbrains.anko.backgroundDrawable
 import pl.kamilszustak.hulapp.R
 import pl.kamilszustak.hulapp.util.round
 import pl.kamilszustak.hulapp.viewmodel.TrackLocationViewModel
@@ -50,6 +53,17 @@ class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
 
         viewModel.currentTrackingState.observe(this, Observer {
             changeTrackButtonIcon(it)
+
+            when (it) {
+                TrackLocationViewModel.TrackingState.STARTED -> {
+                    startGifAnimation()
+                }
+                TrackLocationViewModel.TrackingState.FINISHED,
+                TrackLocationViewModel.TrackingState.NOT_STARTED,
+                TrackLocationViewModel.TrackingState.PAUSED -> {
+                    stopGifAnimation()
+                }
+            }
         })
 
         viewModel.trackLength.observe(this, Observer {
@@ -65,9 +79,6 @@ class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
                 (it % 60)
             )
             trackTimeTextView.text = formattedTime
-        })
-
-        viewModel.currentUser.observe(this, Observer {
         })
     }
 
@@ -98,6 +109,20 @@ class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
             trackTimeTextView.text = "00:00:00"
 
             true
+        }
+    }
+
+    private fun startGifAnimation() {
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.scooter)
+            .into(gifImageView)
+    }
+
+    private fun stopGifAnimation() {
+        context?.let {
+            val drawable = context?.getDrawable(R.drawable.scooter)
+            gifImageView.setImageDrawable(drawable)
         }
     }
 

@@ -9,10 +9,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import kotlinx.android.synthetic.main.fragment_profile.*
 import pl.kamilszustak.hulapp.R
-import pl.kamilszustak.hulapp.viewmodel.LoginViewModel
+import pl.kamilszustak.hulapp.model.User
 import pl.kamilszustak.hulapp.viewmodel.ProfileViewModel
 import pl.kamilszustak.hulapp.viewmodel.factory.BaseViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -60,9 +65,32 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 activity?.finish()
             }
         })
+
+        viewModel.currentUser.observe(this, Observer {
+            loadUserDetails(it)
+        })
     }
 
     private fun setListeners() {
 
+    }
+
+    private fun loadUserDetails(user: User) {
+        userNameTextView.text = "${user.name} ${user.surname}"
+
+        user.profile?.let {
+            Glide.with(this)
+                .load(it.photoUrl)
+                .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade(150))
+                .into(userProfilePhotoImageView)
+
+
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            userBirthDateTextView.text = dateFormat.format(it.birthDate)
+            userCityTextView.text = it.city
+            userCountryTextView.text = it.country
+            userBioTextView.text = it.bio
+        }
     }
 }

@@ -12,10 +12,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yashovardhan99.timeit.Stopwatch
 import kotlinx.coroutines.launch
+import pl.kamilszustak.hulapp.constant.DEFAULT_CURRENT_USER_ID
 import pl.kamilszustak.hulapp.model.Track
 import pl.kamilszustak.hulapp.model.User
 import pl.kamilszustak.hulapp.network.HulAppService
 import pl.kamilszustak.hulapp.network.RetrofitClient
+import pl.kamilszustak.hulapp.repository.SettingsRepository
 import pl.kamilszustak.hulapp.util.getSystemService
 import pl.kamilszustak.hulapp.util.round
 import timber.log.Timber
@@ -27,8 +29,6 @@ class TrackLocationViewModel(application: Application) : BaseViewModel(applicati
     private val LOCATION_UPDATE_MIN_DISTANCE: Float = 10.0F
 
     private val locationManager = application.applicationContext.getSystemService<LocationManager>()
-
-    val currentUser: LiveData<User> = getUser()
 
     /**
      * Current track length in kilometers
@@ -153,7 +153,7 @@ class TrackLocationViewModel(application: Application) : BaseViewModel(applicati
                 endDate = Date()
                 duration = stopwatch.elapsedTime / 1000
                 length = _trackLength.value ?: 0.0
-                userId = currentUser.value?.id ?: 0
+                userId = getSettingValue(SettingsRepository.SharedPreferencesSettingsKey.CURRENT_USER_ID, DEFAULT_CURRENT_USER_ID)
             }
             _currentTrackingState.value = TrackingState.FINISHED
             postAndInsertTrack(currentTrack)

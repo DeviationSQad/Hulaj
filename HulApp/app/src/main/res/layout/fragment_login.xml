@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/emailEditText"
-            android:text="kamil@wp.pl"
+            android:text="kamil@onet.pl"
             android:hint="Email" />
 
     </com.google.android.material.textfield.TextInputLayout>

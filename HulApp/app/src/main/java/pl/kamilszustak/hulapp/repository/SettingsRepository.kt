@@ -66,5 +66,6 @@ class SettingsRepository(
 
     enum class SharedPreferencesSettingsKey(val stringResourceId: Int) {
         IS_USER_LOGGED_IN(R.string.shared_preferences_is_user_logged_in),
+        CURRENT_USER_ID(R.string.shared_preferences_current_user_id)
     }
 }

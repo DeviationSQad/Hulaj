@@ -17,8 +17,6 @@ class CreateEventViewModel(application: Application) : BaseViewModel(application
     val eventCreationState: LiveData<EventCreationState>
         get() = _eventCreationState
 
-    val currentUser: LiveData<User> = getUser()
-
     fun postAndInsertEvent(event: Event) {
         Timber.i(event.toString())
         val service = RetrofitClient.createService(HulAppService::class.java)

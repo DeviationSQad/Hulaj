@@ -10,8 +10,10 @@ import androidx.transition.TransitionInflater
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import org.jetbrains.anko.design.snackbar
 import pl.kamilszustak.hulapp.R
+import pl.kamilszustak.hulapp.constant.DEFAULT_CURRENT_USER_ID
 import pl.kamilszustak.hulapp.model.Event
 import pl.kamilszustak.hulapp.model.User
+import pl.kamilszustak.hulapp.repository.SettingsRepository
 import pl.kamilszustak.hulapp.viewmodel.CreateEventViewModel
 import pl.kamilszustak.hulapp.viewmodel.factory.BaseViewModelFactory
 import timber.log.Timber
@@ -20,8 +22,6 @@ import java.text.SimpleDateFormat
 class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
 
     private lateinit var viewModel: CreateEventViewModel
-
-    private var currentUserId: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,10 +51,6 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
                 }
             }
         })
-
-        viewModel.currentUser.observe(this, Observer {
-            currentUserId = it.id
-        })
     }
 
     private fun setListeners() {
@@ -76,7 +72,7 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
         val eventMaxAmountOfPeople = eventMaxAmountOfPeopleEditText.text.toString().toInt()
         val eventDescription = eventDescriptionEditText.text.toString()
         val isEventActive = true
-        val eventUserId = currentUserId
+        val eventUserId = viewModel.getSettingValue(SettingsRepository.SharedPreferencesSettingsKey.CURRENT_USER_ID, DEFAULT_CURRENT_USER_ID)
 
         return Event(
             eventTitle,

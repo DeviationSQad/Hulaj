@@ -1,19 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clipToPadding="false"
+    android:clipChildren="false">
 
-    <TextView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="64sp"
-        android:textAlignment="center"
+        android:id="@+id/userDetailsCardView"
+        app:cardElevation="@dimen/default_elevation"
+        app:cardCornerRadius="@dimen/default_radius"
+        style="@style/MaterialCardViewStyle"
+        app:contentPadding="@dimen/default_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:id="@+id/userProfilePhotoImageView"
+                tools:src="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/userNameTextView"
+                tools:text="Jan Kowalski"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/userProfilePhotoImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/userProfilePhotoImageView"
+                android:layout_marginStart="@dimen/default_margin" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/userBirthDateTextView"
+                tools:text="1995-09-15"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@id/userProfilePhotoImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userNameTextView"
+                android:layout_marginStart="@dimen/default_margin" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/userCityTextView"
+                tools:text="Gdynia"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@id/userProfilePhotoImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userBirthDateTextView"
+                android:layout_marginStart="@dimen/default_margin" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/userCountryTextView"
+                tools:text="Polska"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@id/userProfilePhotoImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userCityTextView"
+                app:layout_constraintBottom_toBottomOf="@id/userProfilePhotoImageView"
+                android:layout_marginStart="@dimen/default_margin" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/userBioTextView"
+                tools:text="To jest opis tego profilu, trala la la, trala la la. Taki opis to jest opis, całkiem ciekawy :)"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userProfilePhotoImageView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/default_margin"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
