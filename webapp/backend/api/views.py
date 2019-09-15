@@ -1,9 +1,11 @@
 from rest_framework import generics
+from rest_framework.parsers import FileUploadParser
 from .serializers import UserSerializer, EventSerializer, PostSerializer, TrackSerializer, ScooterSerializer, CarSerializer
 from .models import User, Event, Post, Track, Scooter, Car
 
 
 class UserListView(generics.ListCreateAPIView):
+    parser_class = (FileUploadParser,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -32,6 +34,7 @@ class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ScooterView(generics.ListCreateAPIView):
+    parser_class = (FileUploadParser,)
     serializer_class = ScooterSerializer
 
     def get_queryset(self):

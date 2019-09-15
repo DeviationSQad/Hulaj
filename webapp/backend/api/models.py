@@ -31,7 +31,7 @@ class UserProfile(models.Model):
 
 
 class Scooter(models.Model):
-    id_user = models.ForeignKey(User, to_field='id', default=1, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     photo = models.FileField(blank=True, null=True)
     mark = models.CharField(max_length=100, blank=False, null=False)
     type = models.CharField(max_length=25, blank=False, null=False)
@@ -41,7 +41,7 @@ class Scooter(models.Model):
 
 
 class Car(models.Model):
-    id_user = models.ForeignKey(User, to_field='id', default=1, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     mark = models.CharField(max_length=100, blank=True, null=True)
     type = models.CharField(max_length=25, blank=True, null=True)
     fuel_consumption_per_100 = models.IntegerField(blank=False, null=False)
