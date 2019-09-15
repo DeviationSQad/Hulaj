@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "050058f8249f47e8d5fa6449b5e71a93",
+    "identityHash": "5e6ca890ad73cdca57322fd613abf55b",
     "entities": [
       {
         "tableName": "user",
@@ -80,7 +80,7 @@
       },
       {
         "tableName": "track",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`startDate` INTEGER NOT NULL, `endDate` INTEGER NOT NULL, `duration` REAL NOT NULL, `length` REAL NOT NULL, `userId` INTEGER NOT NULL, `id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`userId`) REFERENCES `user`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`startDate` INTEGER NOT NULL, `endDate` INTEGER NOT NULL, `duration` INTEGER NOT NULL, `length` REAL NOT NULL, `userId` INTEGER NOT NULL, `id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`userId`) REFERENCES `user`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "startDate",
@@ -97,7 +97,7 @@
           {
             "fieldPath": "duration",
             "columnName": "duration",
-            "affinity": "REAL",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -224,7 +224,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '050058f8249f47e8d5fa6449b5e71a93')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5e6ca890ad73cdca57322fd613abf55b')"
     ]
   }
 }

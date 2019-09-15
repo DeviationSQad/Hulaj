@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,12 +61,18 @@ class TracksFragment : Fragment(R.layout.fragment_tracks) {
         viewModel.tracks.observe(this, Observer {
             recyclerViewAdapter.updateTracksList(it)
         })
+
+        viewModel.currentUser.observe(this, Observer {
+        })
     }
 
     private fun setListeners() {
         trackLocationButton.setOnClickListener {
-            val direction = TracksFragmentDirections.actionTracksFragmentToTrackLocationFragment()
-            findNavController().navigate(direction)
+            val direction = TracksFragmentDirections.actionTracksFragmentToTrackLocationFragment().actionId
+            val extras = FragmentNavigatorExtras(
+                it to "trackLocationButton"
+            )
+            findNavController().navigate(direction, null, null, extras)
         }
     }
 }

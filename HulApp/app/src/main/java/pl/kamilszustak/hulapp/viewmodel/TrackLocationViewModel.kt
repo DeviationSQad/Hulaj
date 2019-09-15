@@ -17,6 +17,7 @@ import pl.kamilszustak.hulapp.model.User
 import pl.kamilszustak.hulapp.network.HulAppService
 import pl.kamilszustak.hulapp.network.RetrofitClient
 import pl.kamilszustak.hulapp.util.getSystemService
+import pl.kamilszustak.hulapp.util.round
 import timber.log.Timber
 import java.util.*
 
@@ -27,9 +28,7 @@ class TrackLocationViewModel(application: Application) : BaseViewModel(applicati
 
     private val locationManager = application.applicationContext.getSystemService<LocationManager>()
 
-    private val _currentUser = MutableLiveData<User>()
-    val currentUser: LiveData<User>
-        get() = _currentUser
+    val currentUser: LiveData<User> = getUser()
 
     /**
      * Current track length in kilometers
@@ -144,14 +143,17 @@ class TrackLocationViewModel(application: Application) : BaseViewModel(applicati
     fun stopTracking() {
         val currentTrackingState = _currentTrackingState.value
 
+
+        // TODO: Duration jest w API jako string, każe przekazywać w formacie hh:mm:ss
         if (currentTrackingState == TrackingState.PAUSED) {
             removeLocationUpdates()
             if (stopwatch.isStarted)
                 stopwatch.stop()
             currentTrack.apply {
                 endDate = Date()
+                duration = stopwatch.elapsedTime / 1000
                 length = _trackLength.value ?: 0.0
-                userId = _currentUser.value?.id ?: 0
+                userId = currentUser.value?.id ?: 0
             }
             _currentTrackingState.value = TrackingState.FINISHED
             postAndInsertTrack(currentTrack)

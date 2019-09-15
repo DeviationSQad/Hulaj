@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.transition.TransitionInflater
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import org.jetbrains.anko.design.snackbar
 import pl.kamilszustak.hulapp.R
@@ -25,6 +26,7 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         initializeViewModel()
         observeViewModel()
         setListeners()

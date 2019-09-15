@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.TransitionInflater
 import kotlinx.android.synthetic.main.fragment_track_location.*
 import pl.kamilszustak.hulapp.R
 import pl.kamilszustak.hulapp.util.round
@@ -16,11 +17,12 @@ class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
 
     private val LOCATION_PERMISSION_REQUEST = 1
 
-    private lateinit var locationViewModel: TrackLocationViewModel
+    private lateinit var viewModel: TrackLocationViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         initializeViewModel()
         observeViewModel()
         setListeners()
@@ -29,12 +31,12 @@ class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
     private fun initializeViewModel() {
         activity?.let {
             val factory = BaseViewModelFactory(it.application)
-            locationViewModel = ViewModelProviders.of(this, factory).get(TrackLocationViewModel::class.java)
+            viewModel = ViewModelProviders.of(this, factory).get(TrackLocationViewModel::class.java)
         }
     }
 
     private fun observeViewModel() {
-        locationViewModel.isLocationPermissionGranted.observe(this, Observer {
+        viewModel.isLocationPermissionGranted.observe(this, Observer {
             if (!it) {
                 activity?.let { activity ->
                     ActivityCompat.requestPermissions(
@@ -46,16 +48,16 @@ class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
             }
         })
 
-        locationViewModel.currentTrackingState.observe(this, Observer {
+        viewModel.currentTrackingState.observe(this, Observer {
             changeTrackButtonIcon(it)
         })
 
-        locationViewModel.trackLength.observe(this, Observer {
+        viewModel.trackLength.observe(this, Observer {
 
             trackLengthTextView.text = it.round(2).toString()
         })
 
-        locationViewModel.trackDuration.observe(this, Observer {
+        viewModel.trackDuration.observe(this, Observer {
             val formattedTime = String.format(
                 "%02d:%02d:%02d",
                 it / 3600,
@@ -64,31 +66,34 @@ class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
             )
             trackTimeTextView.text = formattedTime
         })
+
+        viewModel.currentUser.observe(this, Observer {
+        })
     }
 
     private fun setListeners() {
         trackButton.setOnClickListener {
-            val currentTrackingState = locationViewModel.currentTrackingState.value
+            val currentTrackingState = viewModel.currentTrackingState.value
             currentTrackingState?.let {
                 when (it) {
                     TrackLocationViewModel.TrackingState.NOT_STARTED,
                     TrackLocationViewModel.TrackingState.FINISHED -> {
-                        locationViewModel.startTracking()
+                        viewModel.startTracking()
                     }
 
                     TrackLocationViewModel.TrackingState.PAUSED -> {
-                        locationViewModel.resumeTracking()
+                        viewModel.resumeTracking()
                     }
 
                     TrackLocationViewModel.TrackingState.STARTED -> {
-                        locationViewModel.pauseTracking()
+                        viewModel.pauseTracking()
                     }
                 }
             }
         }
 
         trackButton.setOnLongClickListener {
-            locationViewModel.stopTracking()
+            viewModel.stopTracking()
             changeTrackButtonIcon(TrackLocationViewModel.TrackingState.FINISHED)
             trackTimeTextView.text = "00:00:00"
 

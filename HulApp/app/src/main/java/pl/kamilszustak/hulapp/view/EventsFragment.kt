@@ -5,10 +5,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_events.*
+import kotlinx.android.synthetic.main.fragment_tracks.*
 import pl.kamilszustak.hulapp.R
 import pl.kamilszustak.hulapp.adapter.EventsRecyclerViewAdapter
 import pl.kamilszustak.hulapp.model.Event
@@ -63,8 +65,11 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
 
     private fun setListeners() {
         createEventButton.setOnClickListener {
-            val direction = EventsFragmentDirections.actionEventsFragmentToCreateEventFragment()
-            findNavController().navigate(direction)
+            val direction = EventsFragmentDirections.actionEventsFragmentToCreateEventFragment().actionId
+            val extras = FragmentNavigatorExtras(
+                it to "createEventButton"
+            )
+            findNavController().navigate(direction, null, null, extras)
         }
     }
 }
