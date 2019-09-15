@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import pl.kamilszustak.hulapp.constant.DEFAULT_IS_USER_LOGGED_IN
 import pl.kamilszustak.hulapp.model.network.LoginRequest
 import pl.kamilszustak.hulapp.network.HulAppService
 import pl.kamilszustak.hulapp.network.RetrofitClient
+import pl.kamilszustak.hulapp.repository.SettingsRepository
 import timber.log.Timber
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
@@ -15,6 +17,12 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     private val _loginStatus = MutableLiveData<LoginStatus>()
     val loginStatus: LiveData<LoginStatus>
         get() = _loginStatus
+
+    init {
+        val isUserLoggedIn = getSettingValue(SettingsRepository.SharedPreferencesSettingsKey.IS_USER_LOGGED_IN, DEFAULT_IS_USER_LOGGED_IN)
+        if (isUserLoggedIn)
+            _loginStatus.value = LoginStatus.LOGGED_IN
+    }
 
     fun login(email: String, password: String) {
         val loginRequest = LoginRequest(email, password)
@@ -26,10 +34,10 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                 Timber.i("Successful")
                 val response = loginResponse.body()
                 response?.let {
-                    Timber.i(it.toString())
                     insertUser(it.user)
                 }
                 _loginStatus.value = LoginStatus.LOGGED_IN
+                setSettingValue(SettingsRepository.SharedPreferencesSettingsKey.IS_USER_LOGGED_IN, true)
             } else {
                 Timber.i("Error")
                 _loginStatus.value = LoginStatus.LOGIN_ERROR

@@ -14,6 +14,10 @@ class TrackRepository(application: Application) {
         trackDao.insert(track)
     }
 
+    suspend fun insertAll(tracks: List<Track>) {
+        trackDao.insertAll(tracks)
+    }
+
     suspend fun update(track: Track) {
         trackDao.update(track)
     }

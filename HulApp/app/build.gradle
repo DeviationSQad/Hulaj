@@ -87,10 +87,11 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
-    // Retrofit
+    // Retrofit/OkHttp
     def retrofit_version = '2.6.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'

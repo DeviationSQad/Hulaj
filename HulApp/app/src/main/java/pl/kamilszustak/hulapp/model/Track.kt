@@ -12,13 +12,13 @@ import java.util.*
     foreignKeys = [ForeignKey(
         entity = User::class,
         parentColumns = ["id"],
-        childColumns = ["id"],
+        childColumns = ["userId"],
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class Track(
-    @SerializedName("time_start") var startTime: Date = Date(),
-    @SerializedName("time_end") var endTime: Date = Date(),
+    @SerializedName("time_start") var startDate: Date = Date(),
+    @SerializedName("time_end") var endDate: Date = Date(),
     var duration: Double = 0.0,
     @SerializedName("track_length") var length: Double = 0.0,
     @SerializedName("id_user") var userId: Int = 0

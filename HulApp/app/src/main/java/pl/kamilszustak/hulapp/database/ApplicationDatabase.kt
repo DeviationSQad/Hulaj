@@ -17,7 +17,8 @@ import pl.kamilszustak.hulapp.model.Event
         Event::class
     ],
     version = 1,
-    exportSchema = true)
+    exportSchema = true
+)
 @TypeConverters(Converters::class)
 abstract class ApplicationDatabase : RoomDatabase() {
 

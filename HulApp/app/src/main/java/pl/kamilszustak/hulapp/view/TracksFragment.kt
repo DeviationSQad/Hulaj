@@ -8,17 +8,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_events.*
+import kotlinx.android.synthetic.main.fragment_tracks.*
 import pl.kamilszustak.hulapp.R
-import pl.kamilszustak.hulapp.adapter.EventsRecyclerViewAdapter
-import pl.kamilszustak.hulapp.model.Event
-import pl.kamilszustak.hulapp.viewmodel.EventsViewModel
+import pl.kamilszustak.hulapp.adapter.TracksRecyclerViewAdapter
+import pl.kamilszustak.hulapp.model.Track
+import pl.kamilszustak.hulapp.viewmodel.TracksViewModel
 import pl.kamilszustak.hulapp.viewmodel.factory.BaseViewModelFactory
 
-class EventsFragment : Fragment(R.layout.fragment_events) {
+class TracksFragment : Fragment(R.layout.fragment_tracks) {
 
-    private lateinit var viewModel: EventsViewModel
-    private lateinit var recyclerViewAdapter: EventsRecyclerViewAdapter
+    private lateinit var viewModel: TracksViewModel
+    private lateinit var recyclerViewAdapter: TracksRecyclerViewAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,17 +32,17 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
     }
 
     private fun initializeRecyclerViewAdapter() {
-        val listener = object: EventsRecyclerViewAdapter.EventViewHolder.OnEventClickListener {
-            override fun onEventClick(event: Event) {
-                // TODO: Dodać przejście do widoku eventu
+        val listener = object: TracksRecyclerViewAdapter.TrackViewHolder.OnTrackClickListener {
+            override fun onTrackClick(track: Track) {
+                // TODO: Przejście do szczegółów trasy
             }
         }
 
-        recyclerViewAdapter = EventsRecyclerViewAdapter(listener)
+        recyclerViewAdapter = TracksRecyclerViewAdapter(listener)
     }
 
     private fun initializeRecyclerView() {
-        eventsRecyclerView.apply {
+        tracksRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = recyclerViewAdapter
             itemAnimator = DefaultItemAnimator()
@@ -51,19 +52,19 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
     private fun initializeViewModel() {
         activity?.let {
             val factory = BaseViewModelFactory(it.application)
-            viewModel = ViewModelProviders.of(this, factory).get(EventsViewModel::class.java)
+            viewModel = ViewModelProviders.of(this, factory).get(TracksViewModel::class.java)
         }
     }
 
     private fun observeViewModel() {
-        viewModel.events.observe(this, Observer {
-            recyclerViewAdapter.updateEventsList(it)
+        viewModel.tracks.observe(this, Observer {
+            recyclerViewAdapter.updateTracksList(it)
         })
     }
 
     private fun setListeners() {
-        createEventButton.setOnClickListener {
-            val direction = EventsFragmentDirections.actionEventsFragmentToCreateEventFragment()
+        trackLocationButton.setOnClickListener {
+            val direction = TracksFragmentDirections.actionTracksFragmentToTrackLocationFragment()
             findNavController().navigate(direction)
         }
     }

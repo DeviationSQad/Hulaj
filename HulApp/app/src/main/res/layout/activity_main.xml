@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/bottomNavigationView"
-        app:menu="@menu/bottom_navigation_view_menu"
+        app:menu="@menu/menu_bottom_navigation_view"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

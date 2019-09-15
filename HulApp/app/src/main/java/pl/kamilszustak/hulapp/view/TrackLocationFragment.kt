@@ -6,18 +6,17 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import kotlinx.android.synthetic.main.fragment_track.*
+import kotlinx.android.synthetic.main.fragment_track_location.*
 import pl.kamilszustak.hulapp.R
 import pl.kamilszustak.hulapp.util.round
-import pl.kamilszustak.hulapp.viewmodel.TrackViewModel
+import pl.kamilszustak.hulapp.viewmodel.TrackLocationViewModel
 import pl.kamilszustak.hulapp.viewmodel.factory.BaseViewModelFactory
-import java.text.DecimalFormat
 
-class TrackFragment : Fragment(R.layout.fragment_track) {
+class TrackLocationFragment : Fragment(R.layout.fragment_track_location) {
 
     private val LOCATION_PERMISSION_REQUEST = 1
 
-    private lateinit var viewModel: TrackViewModel
+    private lateinit var locationViewModel: TrackLocationViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,12 +29,12 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
     private fun initializeViewModel() {
         activity?.let {
             val factory = BaseViewModelFactory(it.application)
-            viewModel = ViewModelProviders.of(this, factory).get(TrackViewModel::class.java)
+            locationViewModel = ViewModelProviders.of(this, factory).get(TrackLocationViewModel::class.java)
         }
     }
 
     private fun observeViewModel() {
-        viewModel.isLocationPermissionGranted.observe(this, Observer {
+        locationViewModel.isLocationPermissionGranted.observe(this, Observer {
             if (!it) {
                 activity?.let { activity ->
                     ActivityCompat.requestPermissions(
@@ -47,16 +46,16 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
             }
         })
 
-        viewModel.currentTrackingState.observe(this, Observer {
+        locationViewModel.currentTrackingState.observe(this, Observer {
             changeTrackButtonIcon(it)
         })
 
-        viewModel.trackLength.observe(this, Observer {
+        locationViewModel.trackLength.observe(this, Observer {
 
             trackLengthTextView.text = it.round(2).toString()
         })
 
-        viewModel.trackDuration.observe(this, Observer {
+        locationViewModel.trackDuration.observe(this, Observer {
             val formattedTime = String.format(
                 "%02d:%02d:%02d",
                 it / 3600,
@@ -69,45 +68,45 @@ class TrackFragment : Fragment(R.layout.fragment_track) {
 
     private fun setListeners() {
         trackButton.setOnClickListener {
-            val currentTrackingState = viewModel.currentTrackingState.value
+            val currentTrackingState = locationViewModel.currentTrackingState.value
             currentTrackingState?.let {
                 when (it) {
-                    TrackViewModel.TrackingState.NOT_STARTED,
-                    TrackViewModel.TrackingState.FINISHED -> {
-                        viewModel.startTracking()
+                    TrackLocationViewModel.TrackingState.NOT_STARTED,
+                    TrackLocationViewModel.TrackingState.FINISHED -> {
+                        locationViewModel.startTracking()
                     }
 
-                    TrackViewModel.TrackingState.PAUSED -> {
-                        viewModel.resumeTracking()
+                    TrackLocationViewModel.TrackingState.PAUSED -> {
+                        locationViewModel.resumeTracking()
                     }
 
-                    TrackViewModel.TrackingState.STARTED -> {
-                        viewModel.pauseTracking()
+                    TrackLocationViewModel.TrackingState.STARTED -> {
+                        locationViewModel.pauseTracking()
                     }
                 }
             }
         }
 
         trackButton.setOnLongClickListener {
-            viewModel.stopTracking()
-            changeTrackButtonIcon(TrackViewModel.TrackingState.FINISHED)
+            locationViewModel.stopTracking()
+            changeTrackButtonIcon(TrackLocationViewModel.TrackingState.FINISHED)
             trackTimeTextView.text = "00:00:00"
 
             true
         }
     }
 
-    private fun changeTrackButtonIcon(trackingState: TrackViewModel.TrackingState) {
+    private fun changeTrackButtonIcon(trackingState: TrackLocationViewModel.TrackingState) {
         val icon = when (trackingState) {
-            TrackViewModel.TrackingState.NOT_STARTED, TrackViewModel.TrackingState.FINISHED -> {
+            TrackLocationViewModel.TrackingState.NOT_STARTED, TrackLocationViewModel.TrackingState.FINISHED -> {
                 activity?.getDrawable(R.drawable.start_icon)
             }
 
-            TrackViewModel.TrackingState.STARTED -> {
+            TrackLocationViewModel.TrackingState.STARTED -> {
                 activity?.getDrawable(R.drawable.pause_icon)
             }
 
-            TrackViewModel.TrackingState.PAUSED -> {
+            TrackLocationViewModel.TrackingState.PAUSED -> {
                 activity?.getDrawable(R.drawable.start_icon)
             }
         }

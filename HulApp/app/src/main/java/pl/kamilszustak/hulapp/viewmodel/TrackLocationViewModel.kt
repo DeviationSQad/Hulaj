@@ -11,7 +11,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yashovardhan99.timeit.Stopwatch
-import com.yashovardhan99.timeit.Timer
 import kotlinx.coroutines.launch
 import pl.kamilszustak.hulapp.model.Track
 import pl.kamilszustak.hulapp.model.User
@@ -21,7 +20,7 @@ import pl.kamilszustak.hulapp.util.getSystemService
 import timber.log.Timber
 import java.util.*
 
-class TrackViewModel(application: Application) : BaseViewModel(application) {
+class TrackLocationViewModel(application: Application) : BaseViewModel(application) {
 
     private val LOCATION_UPDATE_MIN_INTERVAL: Long = 3000
     private val LOCATION_UPDATE_MIN_DISTANCE: Float = 10.0F
@@ -105,7 +104,7 @@ class TrackViewModel(application: Application) : BaseViewModel(application) {
             currentTrackingState == TrackingState.FINISHED) {
 
             currentTrack = Track(
-                startTime = Date()
+                startDate = Date()
             )
             initializeTimer()
             stopwatch.start()
@@ -150,7 +149,7 @@ class TrackViewModel(application: Application) : BaseViewModel(application) {
             if (stopwatch.isStarted)
                 stopwatch.stop()
             currentTrack.apply {
-                endTime = Date()
+                endDate = Date()
                 length = _trackLength.value ?: 0.0
                 userId = _currentUser.value?.id ?: 0
             }

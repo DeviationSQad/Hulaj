@@ -5,6 +5,6 @@ import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 
 abstract class ApplicationEntity : Parcelable {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id: Int = 0
 }

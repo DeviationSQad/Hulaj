@@ -1,9 +1,12 @@
 package pl.kamilszustak.hulapp.database
 
 import androidx.room.TypeConverter
+import java.text.SimpleDateFormat
 import java.util.*
 
 class Converters {
+
+    private val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {

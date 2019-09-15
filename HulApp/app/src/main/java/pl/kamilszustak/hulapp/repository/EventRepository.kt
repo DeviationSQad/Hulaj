@@ -14,6 +14,10 @@ class EventRepository(application: Application) {
         eventDao.insert(event)
     }
 
+    suspend fun insertAll(events: List<Event>) {
+        eventDao.insertAll(events)
+    }
+
     suspend fun update(event: Event) {
         eventDao.update(event)
     }

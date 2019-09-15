@@ -13,8 +13,11 @@ class BaseViewModelFactory(
         return when (modelClass) {
             LoginViewModel::class.java -> LoginViewModel(application)
             SignUpViewModel::class.java -> SignUpViewModel(application)
-            TrackViewModel::class.java -> TrackViewModel(application)
+            TrackLocationViewModel::class.java -> TrackLocationViewModel(application)
             EventsViewModel::class.java -> EventsViewModel(application)
+            CreateEventViewModel::class.java -> CreateEventViewModel(application)
+            ProfileViewModel::class.java -> ProfileViewModel(application)
+            TracksViewModel::class.java -> TracksViewModel(application)
             else -> BaseViewModel(application)
         } as T
     }

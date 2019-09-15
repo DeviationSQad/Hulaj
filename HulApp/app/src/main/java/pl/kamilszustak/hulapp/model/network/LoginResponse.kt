@@ -5,5 +5,5 @@ import pl.kamilszustak.hulapp.model.User
 
 class LoginResponse(
     @SerializedName("key") val token: String,
-    @SerializedName("user") val user: User
+    val user: User
 )

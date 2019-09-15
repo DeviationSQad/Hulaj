@@ -11,12 +11,16 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="pl.kamilszustak.hulapp.view.EventsFragment"
-        android:label="EventsFragment" />
+        android:label="EventsFragment" >
+        <action
+            android:id="@+id/action_eventsFragment_to_createEventFragment"
+            app:destination="@id/createEventFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/trackFragment"
-        android:name="pl.kamilszustak.hulapp.view.TrackFragment"
-        android:label="TrackFragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="pl.kamilszustak.hulapp.view.ProfileFragment"
@@ -25,4 +29,24 @@
         android:id="@+id/messagesFragment"
         android:name="pl.kamilszustak.hulapp.view.MessagesFragment"
         android:label="MessagesFragment" />
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="pl.kamilszustak.hulapp.view.CreateEventFragment"
+        android:label="CreateEventFragment" />
+    <fragment
+        android:id="@+id/tracksFragment"
+        android:name="pl.kamilszustak.hulapp.view.TracksFragment"
+        android:label="TracksFragment" >
+        <action
+            android:id="@+id/action_tracksFragment_to_trackLocationFragment"
+            app:destination="@id/trackLocationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackLocationFragment"
+        android:name="pl.kamilszustak.hulapp.view.TrackLocationFragment"
+        android:label="TrackLocationFragment" />
 </navigation>

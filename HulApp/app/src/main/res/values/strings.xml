@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">HulApp</string>
     <string name="database_name">hulapp_database</string>
+    <string name="shared_preferences_is_user_logged_in">shared_preferences_is_user_logged_in</string>
+    <string name="shared_preferences_name">hulapp_shared_preferences</string>
 </resources>

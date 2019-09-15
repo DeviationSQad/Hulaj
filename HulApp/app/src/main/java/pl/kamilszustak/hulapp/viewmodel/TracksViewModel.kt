@@ -4,37 +4,31 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pl.kamilszustak.hulapp.model.Event
+import pl.kamilszustak.hulapp.model.Track
 import pl.kamilszustak.hulapp.network.HulAppService
 import pl.kamilszustak.hulapp.network.RetrofitClient
 import timber.log.Timber
 
-class EventsViewModel(application: Application) : BaseViewModel(application) {
+class TracksViewModel(application: Application) : BaseViewModel(application) {
 
-    val events: LiveData<List<Event>> = getAllEvents()
+    val tracks: LiveData<List<Track>> = getAllTracks()
 
     init {
-        syncEvents()
+        syncTracks()
     }
 
-    private fun syncEvents() {
+    private fun syncTracks() {
         val service = RetrofitClient.createService(HulAppService::class.java)
 
         viewModelScope.launch {
-            val response = service.getAllEvents()
+            val response = service.getAllTracks()
             if (response.isSuccessful) {
                 response.body()?.let {
-                    insertAllEvents(it)
+                    insertAllTracks(it)
                 }
             } else {
                 Timber.i("Request unsuccessful ")
             }
-        }
-    }
-
-    private fun addSomeTestEvents() {
-        for (i in 0..10) {
-            insertEvent(Event(i.toString(), i.toString()))
         }
     }
 }

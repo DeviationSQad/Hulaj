@@ -12,5 +12,4 @@ data class User(
     @SerializedName("first_name") var name: String,
     @SerializedName("last_name") var surname: String,
     @Embedded val profile: Profile?
-) : ApplicationEntity() {
-}
+) : ApplicationEntity()

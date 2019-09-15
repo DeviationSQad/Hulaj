@@ -12,7 +12,7 @@
         android:title="Wydarzenia" />
 
     <item
-        android:id="@+id/trackFragment"
+        android:id="@+id/tracksFragment"
         android:icon="@drawable/tracking_icon"
         android:title="Trasa" />
 
